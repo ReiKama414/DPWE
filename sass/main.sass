@@ -1,0 +1,569 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap')
+$bg-main: #F8FBFF
+$bg-right: #F1F5FB
+
+@mixin size($w, $h: $w)
+    width: $w
+    height: $h
+@mixin d-flex-c($rc: unset, $jc: center, $ai: center)
+    display: flex
+    flex-direction: $rc
+    justify-content: $jc
+    align-items: $ai
+@mixin transition($value)
+    transition: $value
+    -o-transition: $value
+    -moz-transition: $value
+    -webkit-transition: $value
+@mixin font($fw: 500, $fs: 16px, $lh: 24px)
+    font-weight: $fw
+    font-size: $fs
+    line-height: $lh
+@mixin keyframes($animationName)
+  @keyframes #{$animationName}
+    @content
+  @-o-keyframes #{$animationName}
+    @content
+  @-moz-keyframes #{$animationName}
+    @content
+  @-webkit-keyframes #{$animationName}
+    @content
+%font-custom
+    font-weight: 700
+    font-size: 16px
+    line-height: 24px
+%nowrap-ellipsis
+    overflow: hidden
+    text-overflow: ellipsis
+    white-space: nowrap
+%fill-available
+    width: fill-available
+    width: -moz-available
+    width: -webkit-fill-available
+
+@media(prefers-reduced-motion: reduce)
+  *, *::before, *::after
+    transition: none !important
+    animation: none !important
+    scroll-behavior: auto !important
+
+:root   
+    --font-color-dark: #353535
+    --font-color-light: #848383
+*, *::before, *::after, p
+    box-sizing: border-box
+    margin: 0
+    padding: 0
+    outline: none
+    -webkit-text-size-adjust: none
+*:focus:not(:focus-visible),
+*::before:focus:not(:focus-visible),
+*::after:focus:not(:focus-visible)
+    outline: none
+*
+    &::-webkit-scrollbar
+        display: none
+    &::placeholder
+        color: var(--font-color-light)
+    &::-moz-placeholder
+        color: var(--font-color-light)
+        opacity: 1
+    &::-webkit-input-placeholder
+        color: var(--font-color-light)
+a
+    cursor: pointer
+    text-decoration: none
+    color: inherit
+    &:hover
+        color: inherit
+button
+    background: transparent
+    border: none
+input
+    outline: none
+    border: none
+body
+    @include d-flex-c
+    font-family: 'Roboto', sans-serif
+    overflow: hidden
+    padding: 36px
+    width: 100vw
+    height: 100vh
+    background: linear-gradient(to right bottom, #ec8dc3, #dd92d1, #cb97dc, #b79de3, #a2a2e7, #90acf0, #7cb6f6, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1)
+
+.app-container
+    @include size(100%)
+    position: relative
+    overflow: hidden
+    max-width: 1200px
+    max-height: 900px
+    background: #FFFFFF
+    border-radius: 10px
+    box-shadow: 0 0 0 8px rgb(255 255 255 / 60%), 0 0 0 16px rgb(255 255 255 / 30%)
+    & > div > div
+        overflow: auto
+        &:not(.m-area)
+            padding: 36px
+        &::-webkit-scrollbar
+            display: none
+        // &::-webkit-scrollbar
+        //     width: 18px
+        // &::-webkit-scrollbar-track
+        //     background: rgba(0, 0, 0, 0)
+        //     border-radius: 10px
+        // &::-webkit-scrollbar-thumb
+        //     background: #898989
+        //     border-radius: 10px
+        //     background-clip: padding-box
+        //     border: 7px solid rgba(255, 255, 255, 90%)
+
+@include keyframes(arrow)
+  from
+    transform: translateX(0)
+  to
+    transform: translateX(4px)
+@include keyframes(sticky)
+  from
+    transform: translatey(-66px)
+  to
+    transform: translatey(0px)
+
+.l-area
+    @include d-flex-c(column, unset)
+    @extend %font-custom
+    color: var(--font-color-dark)
+    background-color: #FFFFFF
+    .logo
+        margin: 20px 0 36px
+    .mi-link, .download
+        @include transition(color .25s)
+        font-size: 28px
+        margin-bottom: 36px
+        &:not(.active)
+            color: var(--font-color-light)
+        &:not(.mi-link)
+            margin-bottom: 0
+            &:hover
+                color: var(--font-color-dark)
+            // &.active
+            //     color: #B5BCC5
+.m-area
+    flex: 1
+    height: 100%
+    background: $bg-main
+    .btn-s-la, .btn-s-ra
+        @include size(32px, 40px)
+        position: absolute
+        top: 24px
+        right: 0
+        color: #FFFFFF
+        background: #9FA3E8
+        border-radius: 4px 0 0 4px
+    .btn-s-la
+        display: none
+        left: 0
+        right: auto
+        border-radius: 0 4px 4px 0
+    .header
+        padding: 24px 40px
+        .search-wrapper
+            @include d-flex-c
+            background: #FFFFFF
+            border-radius: 4px
+            box-shadow: 0 2px 6px 0 rgb(75 93 171 / 15%)
+        &.fixed
+            position: sticky
+            z-index: 2
+            top: 0
+            animation: sticky 0.5s forwards
+        input
+            padding: 0 12px
+            flex: 1
+            height: 40px
+            font-size: 12px
+            color: var(--font-color-dark)
+            caret-color: #97A7EC
+            background: transparent
+        i
+            padding-right: 12px
+            color: var(--font-color-light)
+    .sct-content
+        display: block
+        overflow: hidden
+        margin-top: 24px
+        padding: 0 40px 8px
+        .sct-h-wrapper
+            h1
+                @include font(700, 22px, 30px)
+                margin: 12px 0
+            a
+                position: relative
+                font-size: 12px
+                color: #718BB7
+                &::after
+                    @include transition(all .25s)
+                    font-family: "Font Awesome 6 Free"
+                    content: "\f054"
+                    position: absolute
+                    opacity: 0
+                    margin-left: 4px
+                    font-weight: 900
+                    transform: translateX(-45%)
+                &:hover::after
+                    opacity: 1
+                    transform: none
+                    animation: arrow .4s infinite alternate ease-out
+        .sct-shortcut-items
+            @include d-flex-c(row, flex-start)
+            flex-wrap: wrap
+            margin: 0 -8px
+            .stct-item
+                @include d-flex-c(column)
+                padding: 8px
+                .stct-icon
+                    @include d-flex-c
+                    @include size(100%)
+                    padding: 18px
+                    color: #FFFFFF
+                    border-radius: 12px
+                    i
+                        @include d-flex-c
+                        @include size(32px)
+                        font-size: 24px
+                span
+                    @include font(400, 12px, 24px)
+                    color: var(--font-color-light)
+                &:nth-of-type(1), &:nth-of-type(2)
+                    .stct-icon
+                        background-color: #E0AAB0
+                &:nth-of-type(3), &:nth-of-type(4)
+                    .stct-icon
+                        background-color: #ABBED8
+                &:nth-of-type(5), &:nth-of-type(6)
+                    .stct-icon
+                        background-color: #AFD6DB
+                &:nth-of-type(7), &:nth-of-type(8)
+                    .stct-icon
+                        background-color: #A0A2BC
+        .sct-rf-table-wrapper
+            padding: 12px
+            background-color: #FFFFFF
+            border-radius: 12px
+            box-shadow: 0 2px 6px 0 rgb(136 148 171 / 20%), 0 24px 20px -24px rgb(71 82 107 / 10%)
+            .sct-rf-table
+                width: 100%
+            th, td
+                font-weight: 400
+                font-size: 12px
+                line-height: 16px
+                padding: 8px
+                color: #000000
+                &:first-of-type, &:nth-of-type(3)
+                    text-align: center
+            th
+                color: #888da9
+                &:first-of-type
+                    width: 3rem
+                &:nth-of-type(3)
+                    width: 6rem
+                &:last-of-type
+                    text-align: center
+            td
+                &:first-of-type, &:last-of-type
+                    text-transform: uppercase
+                &:first-of-type span
+                    padding: 4px
+                    border-radius: 4px
+                &:last-of-type
+                    width: 4.75rem
+                    text-align: right
+                &:nth-of-type(2)
+                    max-width: 0
+                    overflow: hidden
+                    text-overflow: ellipsis
+                    white-space: nowrap
+        .sct-preview-items 
+            @include d-flex-c(row, space-around)
+            aspect-ratio: 14/4
+            video
+                @include size(100%)
+                inset: 0
+                object-fit: cover
+            .sctp-item
+                @include transition(width .25s)
+                @include size(12%, 100%)
+                position: relative
+                overflow: hidden
+                border-radius: 12px
+                > *
+                    position: absolute
+                    color: #FFFFFF
+                &.active
+                    width: 48%
+                    .vdo-time, .vdo-info
+                        opacity: 1
+                    .vdo-overlay
+                        opacity: 0
+            .vdo-play.pause i::before
+                content: '\f04c'
+            .vdo-overlay
+                @include transition(opacity .25s)
+                inset: 0
+                background: linear-gradient(0deg, rgba(174, 143, 135, 0.605) 0%, rgba(221, 232, 255, 0.4) 90%)
+            .vdo-time, .vdo-info
+                @include transition(opacity .25s)
+                opacity: 0
+            .vdo-time
+                padding: 2px 8px
+                top: 12px
+                right: 12px
+                font-size: 12px
+                background: rgba(149, 164, 170, 0.475)
+                border-radius: 10px
+            .vdo-info
+                @include d-flex-c(row, space-between)
+                inset: 12px
+                top: auto
+                .vdo-play
+                    @include size(42px)
+                    margin-left: 8px
+                    min-width: 42px
+                    color: #FFFFFF
+                    background: #ff4646b4
+                    border-radius: 50%
+                > div
+                    overflow: hidden
+                    *
+                        @include font
+                        overflow: hidden
+                        text-overflow: ellipsis
+                        white-space: nowrap
+                .vdo-size
+                    @include font(400, 12px)
+        //sctp-item
+    .overlay
+        @include transition(all .25s)
+        position: absolute
+        opacity: 0
+        inset: 0
+        background: rgba(0, 0, 0, .4)
+        z-index: -1
+.r-area
+    @include transition(all .25s)
+    position: absolute
+    opacity: 0
+    right: 0
+    width: 320px
+    height: 100%
+    background: $bg-right
+    transform: translateX(100%)
+    z-index: 2
+    &.show
+        opacity: 1
+        transform: translateX(0)
+        box-shadow: 0 0 0 10px rgb(255 255 255 / 40%)
+    .header
+        @include d-flex-c(row, space-between)
+        color: var(--font-color-dark)
+        &:not(:first-of-type)
+            margin: 20px 0
+        .more-action
+            @include transition(color .25s)
+            @include size(24px)
+            @extend %font-custom
+            text-align: right
+            letter-spacing: 2px
+            &:not(:hover)
+                color: var(--font-color-light)
+    .dl-item
+        padding: 8px 0
+        font-size: 12px
+        line-height: 16px
+        .dl-area
+            @include d-flex-c
+            margin: 8px 0
+            padding: 8px
+            background-color: #E0E2E9
+            border-radius: 10px
+            .dl-item-icon
+                @include d-flex-c
+                @include size(32px)
+                position: relative
+                min-width: 32px
+                font-size: 18px
+                border-radius: 50%
+                color: #FFFFFF
+                .fa-circle, .fa-arrow-down
+                    position: absolute
+                    right: 0
+                    bottom: 0
+                    color: #888DA9
+                    border-radius: 50%
+                    transform: scale(.4)
+                .fa-arrow-down
+                    color: #FFFFFF
+                    right: 2.3px
+                    transform: scale(.26)
+            .dl-content
+                @include d-flex-c(column, center, flex-start)
+                overflow: hidden
+                flex: 1
+                padding: 0 12px
+                p
+                    @extend %fill-available
+                    @extend %nowrap-ellipsis
+                    padding-top: 1px
+                .progress
+                    width: 100%
+                    margin-top: 4px
+                    --bs-progress-height: 4px
+                    --bs-progress-bar-bg: #a9a488
+                h6
+                    @extend %fill-available
+                    @extend %nowrap-ellipsis
+                    margin: 0
+                    font-weight: 400
+                    font-size: 12px
+                    line-height: 14px
+                    color: #A2A3A6
+                    transform: scale(.8)
+                    transform-origin: 0 0
+                    span
+                        margin-right: 6px
+            .dl-action
+                @include size(24px)
+                min-width: 24px
+                color: #8DA988
+                border: 2px solid #8DA988
+                border-radius: 50%
+                &::after
+                    font-family: "Font Awesome 6 Free"
+                    content: "\f04d"// "\f063"
+                    margin-top: 2px
+                    font-weight: 900
+                    font-size: 12px
+            &.wait, &.stop
+                .dl-content .progress
+                    display: none
+                &:not(.stop) .dl-action::after
+                    content: "\f063"
+            &.download
+                .dl-content h6
+                    display: none
+                .dl-action::after
+                    content: "\f04c"
+    .fr-item
+        @include d-flex-c(columns, flex-start)
+        height: 150px
+        span
+            color: #8989B2
+        .fr-progress-time
+            @include size(2px, 100%)
+            position: relative
+            min-width: 2px
+            background: #262626
+            span
+                position: absolute
+                top: -9px
+                left: 10px
+                font-size: 12px
+                transform: scale(.95)
+            &::before, &::after
+                @include size(10px)
+                content: ''
+                position: absolute
+                top: -5px
+                background-color: #22244a
+                border-radius: 50%
+                transform: translateX(-50%)
+                left: 50%
+            &::after
+                top: auto
+                bottom: -5px
+            .time.end
+                top: auto
+                bottom: -9px
+        .fr-content
+            overflow: hidden
+            padding-left: 8px
+        .fr-files
+            @include d-flex-c(row, flex-start)
+        .fr-files-info
+            display: -webkit-box
+            -webkit-box-orient: vertical
+            -webkit-line-clamp: 2
+            overflow: hidden
+            word-wrap: break-word
+            margin: 8px 0 0 10px
+            font-size: 12px
+    .fr-wrapper
+        overflow: hidden
+        margin-left: 6px
+        aspect-ratio: 1/1
+        max-width: 93.98px
+        border-radius: 12px
+        flex-basis: 100% // == width: 100%
+        &.av, &.mr
+            @include d-flex-c
+            font-size: 20px
+        &.img
+            &:hover img
+                transform: scale(1.05)
+            img
+                @include transition(0.15s ease-in)
+                @include size(100%)
+                object-fit: cover
+        &.mr
+            background: #E0E2E9
+            cursor: pointer
+.btn-close
+    position: absolute
+    display: none
+    padding: 3.6px
+    top: 16px
+    right: 16px
+    cursor: pointer
+    border: 2px solid black
+    background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/.75em auto no-repeat
+    // border-radius: 50%
+
+@media (max-width: 575.98px)
+    body
+        padding: 0
+    .app-container
+        border-radius: 0
+    .l-area
+        @include transition(all .25s)
+        position: absolute
+        opacity: 0
+        height: 100%
+        transform: translateX(-100%)
+        z-index: 2
+        &.show        
+            opacity: 1
+            transform: translateX(0)
+            box-shadow: 0 0 0 10px rgb(255 255 255 / 40%)
+            ~ .m-area .overlay
+                opacity: 1
+                z-index: 1
+    .r-area.show
+        width: 100%
+    .btn-close, .m-area .btn-s-la
+        display: block
+    .sct-content
+        .stct-item
+            width: 33.33333333%
+            .stct-icon
+                min-width: 68px
+        .sct-preview-items 
+            flex-direction: column !important
+            aspect-ratio: auto !important
+            .sctp-item
+                aspect-ratio: 9/16
+                margin: 8px 0
+                width: 100% !important
+                .vdo-time, .vdo-info
+                    opacity: 1
+@media (max-width: 299.98px)
+    .sct-content .stct-item
+        width: 50%
